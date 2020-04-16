@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  position: sticky;
+  top: 0;
+}
+
+.main-header .container {
+  background-color: lightgray;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 5%;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.title-icon {
+  width: 40px;
+  margin-left: 10px;
+}
+
+a:link {
+  text-decoration: none;
+  color: black;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.dropdown {
+  width: 60px;
+  height: 40px;
+  background-color: #D3A4FF;
+}
+
+.nav-list {
+  width: 100px;
+  padding-left: 0;
+  text-align: center;
+  margin: 0;
+}
+
+.nav-list li {
+  list-style-type: none;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 799px) {
+  .nav-list {
+    background-color: #FFAF60;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 15%);
+  }
+
+  .main-nav:hover .nav-list {
+    display: block;
+  }
+}
+
+.banner {
+  background-color: skyblue;
+  height: 25vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome {
+  font-size: 2.5rem;
+}
+
+.main-container {
+  width: 90%;
+  margin: 20px auto;
+  flex: 1;
+}
+
+.section-title {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.content-box {
+  background-color: #9393FF;
+  height: 150px;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+footer .call-to-action {
+  height: 50px;
+  width: 150px;
+  font-size: 1rem;
+  background-color: #C4E1FF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 500px) {
+  .main-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .content-box {
+    width: 48%;
+  }
+}
+
+@media (min-width: 800px) {
+  .nav-list {
+    display: flex;
+    width: auto;
+  }
+
+  .nav-list li {
+    margin: 0 10px;
+  }
+
+  .dropdown {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-container {
+    max-width: 1200px;
+  }
+}
