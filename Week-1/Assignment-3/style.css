@@ -339,6 +339,8 @@ body {
   border: 1px solid #dadce0;
   margin-top: 16px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .news-row img {
@@ -348,11 +350,18 @@ body {
 }
 
 article a {
-  display: inline-block;
+  /* display: inline-block; */
 }
 
 .news-row .content {
   padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-row .content p {
+  flex: 1;
 }
 
 .news-row .article-title {
@@ -369,15 +378,26 @@ article a {
 }
 
 .news-row article .btn {
-  padding: 16px 8px 0;
-  margin: 0 4px -8px -8px;
+  padding: 12px 8px;
+  margin: 0 4px -8px -16px;
   color: #1a73e8;
   line-height: 36px;
   font: 500 14px/36px "Google Sans";
+  border-radius: 4px;
 }
 
 .news-row article .btn-2 {
   margin-left: 4px;
+}
+
+.news-row article .btn:hover,
+.news-row article .btn-2:hover {
+  cursor: pointer;
+  background: #e8f0fe;
+}
+
+.news-row article .btn-container {
+  padding: 16px 8px 0;
 }
 
 .iframe-container {
