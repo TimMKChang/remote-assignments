@@ -26,24 +26,20 @@ const selectionSort = require('./selectionSort.js');
 const getRandomNumberArray = require('./getRandomNumberArray.js')
 
 // const unsort = [10, 8, 9, 2, 6, 5, 7, 3, 1, 4];
-const unsort = getRandomNumberArray(20);
+const unsort = getRandomNumberArray(10000000);
 console.log('sort:');
 console.log(unsort);
-console.log('selection sort:');
-console.log(selectionSort(unsort));
+
+// console.log('selection sort:');
+// let startTime = new Date();
+// console.log(selectionSort(unsort));
+// console.log('used time:');
+// console.log((new Date() - startTime) / 1000);
+
+console.log('');
+
 console.log('quick sort:');
+startTime = new Date();
 console.log(quickSort(unsort, 0, unsort.length - 1));
-
-// compare time consuming
-// console.log('selection sort used time:');
-// console.log(calculateTime(selectionSort, unsort));
-// console.log('quick sort used time:');
-// console.log(calculateTime(quickSort, unsort));
-
-// -------------------------------------------------------------
-function calculateTime(func, args) {
-  const startTime = new Date();
-  func(args);
-
-  return ((new Date() - startTime) / 1000)
-}
+console.log('used time:');
+console.log((new Date() - startTime) / 1000);
