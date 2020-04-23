@@ -1,67 +1,49 @@
-function quickSort(unsort) {
-  // create a new array, keep original array the same
-  const array = [];
-  unsort.forEach(ele => {
-    array.push(ele);
-  })
+function quickSort(array, low, high) {
 
-  const record = [[0, array.length - 1]];
-  while (record[record.length - 1].length > 0) {
+  // const i = partition(array, low, high);
 
-    const lastRecord = record[record.length - 1];
-    const newReocrd = [];
+  // if (i - low > 1) {
+  //   quickSort(array, low, i - 1);
+  // }
+  // if (high - i > 1) {
+  //   quickSort(array, i + 1, high);
+  // }
 
-    for (let i = 0; i < lastRecord.length; i += 2) {
-
-      const low = lastRecord[i];
-      const high = lastRecord[i + 1];
-
-      newReocrd.push(...partition(array, low, high));
-
-    }
-
-    record.push(newReocrd);
-
+  if (low < high) {
+    const i = partition(array, low, high);
+    quickSort(array, low, i - 1);
+    quickSort(array, i + 1, high);
   }
 
   return array;
 }
 
-function partition(array, low, high) {
-  // choose last element as pivot
-  const pivot = array[high];
-  let i = low;
-  let temp;
+function swap(array, i, j) {
+  let temp = array[i];
+  array[i] = array[j];
+  array[j] = temp;
+}
 
-  while (array[i] < pivot) {
+function partition(array, low, high) {
+  // choose last element(high) as pivot
+  let i = low;
+
+  // use i and j to divide the unsorted array into 2 parts
+  while (array[i] < array[high]) {
     i++;
   }
 
   for (let j = i + 1; j < high; j++) {
-    if (array[j] < pivot) {
-      temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+    if (array[j] < array[high]) {
+      swap(array, i, j);
       i++;
     }
   }
 
   // change index i element and pivot
-  temp = array[i];
-  array[i] = array[high];
-  array[high] = temp;
+  swap(array, i, high);
 
-  // check the remaining part need to partition
-  // if one part left one number or none, the part no need to partition again
-  let record = [];
-  if (i - low > 1) {
-    record.push(low, i - 1);
-  }
-  if (high - i > 1) {
-    record.push(i + 1, high);
-  }
-
-  return record;
+  return i;
 }
 
 module.exports = quickSort;

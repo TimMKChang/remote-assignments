@@ -29,16 +29,16 @@ const getRandomNumberArray = require('./getRandomNumberArray.js')
 const unsort = getRandomNumberArray(20);
 console.log('sort:');
 console.log(unsort);
-console.log('quick sort:');
-console.log(quickSort(unsort));
 console.log('selection sort:');
 console.log(selectionSort(unsort));
+console.log('quick sort:');
+console.log(quickSort(unsort, 0, unsort.length - 1));
 
 // compare time consuming
-console.log('quick sort used time:');
-console.log(calculateTime(quickSort, unsort));
-console.log('selection sort used time:');
-console.log(calculateTime(selectionSort, unsort));
+// console.log('selection sort used time:');
+// console.log(calculateTime(selectionSort, unsort));
+// console.log('quick sort used time:');
+// console.log(calculateTime(quickSort, unsort));
 
 // -------------------------------------------------------------
 function calculateTime(func, args) {
