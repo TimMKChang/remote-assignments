@@ -31,13 +31,11 @@ console.log('sort:');
 console.log(unsort);
 
 console.time('selection sort');
-// console.log(selectionSort(unsort));
-selectionSort(unsort)
+console.log(selectionSort(unsort));
 console.timeEnd("selection sort");
 
 console.log('');
 
 console.time('quick sort');
-// console.log(quickSort(unsort, 0, unsort.length - 1));
-quickSort(unsort, 0, unsort.length - 1)
+console.log(quickSort(unsort, 0, unsort.length - 1));
 console.timeEnd("quick sort");

@@ -35,13 +35,17 @@ function partition(array, low, high) {
 
   for (let j = i + 1; j < high; j++) {
     if (array[j] < array[high]) {
-      swap(array, i, j);
+      // swap(array, i, j);
+      // swap
+      [array[i], array[j]] = [array[j], array[i]];
       i++;
     }
   }
 
   // change index i element and pivot
-  swap(array, i, high);
+  // swap(array, i, high);
+  // swap
+  [array[i], array[high]] = [array[high], array[i]];
 
   return i;
 }
