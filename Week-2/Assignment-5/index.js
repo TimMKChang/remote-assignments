@@ -26,15 +26,15 @@ const selectionSort = require('./selectionSort.js');
 const getRandomNumberArray = require('./getRandomNumberArray.js')
 
 // const unsort = [10, 8, 9, 2, 6, 5, 7, 3, 1, 4];
-const unsort = getRandomNumberArray(10000000);
+const unsort = getRandomNumberArray(20);
 console.log('sort:');
 console.log(unsort);
 
-// console.log('selection sort:');
-// let startTime = new Date();
-// console.log(selectionSort(unsort));
-// console.log('used time:');
-// console.log((new Date() - startTime) / 1000);
+console.log('selection sort:');
+let startTime = new Date();
+console.log(selectionSort(unsort));
+console.log('used time:');
+console.log((new Date() - startTime) / 1000);
 
 console.log('');
 
