@@ -30,16 +30,14 @@ const unsort = getRandomNumberArray(20);
 console.log('sort:');
 console.log(unsort);
 
-console.log('selection sort:');
-let startTime = new Date();
-console.log(selectionSort(unsort));
-console.log('used time:');
-console.log((new Date() - startTime) / 1000);
+console.time('selection sort');
+// console.log(selectionSort(unsort));
+selectionSort(unsort)
+console.timeEnd("selection sort");
 
 console.log('');
 
-console.log('quick sort:');
-startTime = new Date();
-console.log(quickSort(unsort, 0, unsort.length - 1));
-console.log('used time:');
-console.log((new Date() - startTime) / 1000);
+console.time('quick sort');
+// console.log(quickSort(unsort, 0, unsort.length - 1));
+quickSort(unsort, 0, unsort.length - 1)
+console.timeEnd("quick sort");
