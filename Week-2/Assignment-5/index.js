@@ -27,12 +27,17 @@ const getRandomNumberArray = require('./getRandomNumberArray.js')
 
 // const unsort = [10, 8, 9, 2, 6, 5, 7, 3, 1, 4];
 const unsort = getRandomNumberArray(20);
+console.log('sort:');
 console.log(unsort);
+console.log('quick sort:');
 console.log(quickSort(unsort));
+console.log('selection sort:');
 console.log(selectionSort(unsort));
 
 // compare time consuming
+console.log('quick sort used time:');
 console.log(calculateTime(quickSort, unsort));
+console.log('selection sort used time:');
 console.log(calculateTime(selectionSort, unsort));
 
 // -------------------------------------------------------------
