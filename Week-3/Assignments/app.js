@@ -1,8 +1,14 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const cookieParser = require('cookie-parser');
+const exphbs = require('express-handlebars');
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.send('Hello, My Server!');
@@ -27,6 +33,25 @@ app.get('/getData', (req, res) => {
     return res.json({ error: 'Wrong Parameter' });
   }
 
+});
+
+// assignment 4
+app.get('/myName', (req, res) => {
+
+  const name = req.cookies.name;
+  return res.render('myName', { name });
+});
+
+app.get('/trackName', (req, res) => {
+
+  res.cookie('name', req.query.name);
+  return res.redirect('/myName');
+});
+
+app.post('/goodbye', (req, res) => {
+
+  res.clearCookie('name');
+  return res.redirect('/myName');
 });
 
 app.listen(port, () => {

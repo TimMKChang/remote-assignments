@@ -1,0 +1,19 @@
+{{#if name}}
+
+<h1>Welcome back! {{name}}!</h1>
+<form action="/goodbye" method="POST">
+  <button type="submit">Goodbye~</button>
+</form>
+
+{{else}}
+
+<h1>Hello! Please enter your name</h1>
+
+<form action="/trackName">
+
+  <input type="text" name="name" placeholder="Please enter your name">
+  <button type="submit">Submit</button>
+
+</form>
+
+{{/if}}
