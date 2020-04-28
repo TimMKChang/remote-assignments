@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+app.use(express.static('public'));
+
 app.get('/', (req, res) => {
   res.send('Hello, My Server!');
 });
@@ -11,18 +13,18 @@ app.get('/getData', (req, res) => {
 
   if (!req.query.number) {
     // lack parameter
-    return res.send('<h1>Lack of Parameter</h1>');
+    return res.json({ error: 'Lack of Parameter' });
   }
 
   const number = +req.query.number;
 
   if (number % 1 === 0 && number > 0) {
     // positive integer
-    const result = (1 + number) * number / 2;
-    res.send(`<h1>1+2+...+${number} = ${result}</h1>`);
+    const sum = (1 + number) * number / 2;
+    return res.json({ sum });
   } else {
     // wrong parameter
-    res.send('<h1>Wrong Parameter</h1>');
+    return res.json({ error: 'Wrong Parameter' });
   }
 
 });

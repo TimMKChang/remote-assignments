@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sum</title>
+</head>
+
+<body>
+
+  <div class="container" style="text-align: center; padding-top: 50px;">
+    <h1>Input N to calculate 1+2+...+N ?</h1>
+    <input type="text" class="input-number">
+    <button type="button" class="cal-btn">Calculate Now!</button>
+    <h2 class="sum"></h2>
+  </div>
+
+  <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    axios.get('http://localhost:3000/getData?number=10')
+      .then(response => console.log('axios', response.data))
+      .catch(error => console.error(error))
+  </script> -->
+  <script>
+
+    const calBtnHTML = document.querySelector('.cal-btn');
+    const sumHTML = document.querySelector('.sum');
+    const inputNumberHTML = document.querySelector('.input-number');
+
+    calBtnHTML.addEventListener('click', outputSum);
+    // for press enter
+    inputNumberHTML.addEventListener('keypress', (event) => {
+      if (event.which === 13) {
+        outputSum();
+      }
+    });
+
+    function outputSum() {
+      const number = inputNumberHTML.value;
+      const url = `http://localhost:3000/getData?number=${number}`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            sumHTML.innerHTML = data.error;
+          } else {
+            sumHTML.innerHTML = `1+2+...+N = ${data.sum}`;
+          }
+        })
+    }
+
+  </script>
+
+</body>
+
+</html>
