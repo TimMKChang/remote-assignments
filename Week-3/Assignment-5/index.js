@@ -66,9 +66,10 @@ function twoSum_2_pass(nums, target) {
   }
 
   for (let i = 0; i < nums.length; i++) {
-    if (hash_table[target - nums[i]] !== undefined) {
-      if (hash_table[target - nums[i]] !== i) {
-        return [i, hash_table[target - nums[i]]];
+    const prop = target - nums[i];
+    if (prop in hash_table) {
+      if (hash_table[prop] !== i) {
+        return [i, hash_table[prop]];
       }
     }
   }
@@ -81,8 +82,9 @@ function twoSum_1_pass(nums, target) {
   const hash_table = {};
 
   for (let i = 0; i < nums.length; i++) {
-    if (hash_table[target - nums[i]] !== undefined) {
-      return [hash_table[target - nums[i]], i];
+    const prop = target - nums[i];
+    if (prop in hash_table) {
+      return [hash_table[prop], i];
     }
     hash_table[nums[i]] = i;
   }
