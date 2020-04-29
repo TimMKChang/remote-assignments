@@ -29,3 +29,13 @@
 
 ### Assignment-5
 - [Github repository](https://github.com/TimMKChang/remote-assignments/tree/master/Week-2/Assignment-5)
+
+***
+
+## Week-3
+
+### Assignments
+- [Github repository](https://github.com/TimMKChang/remote-assignments/tree/master/Week-3/Assignments)
+
+### Assignment-5
+- [Github repository](https://github.com/TimMKChang/remote-assignments/tree/master/Week-3/Assignment-5)
