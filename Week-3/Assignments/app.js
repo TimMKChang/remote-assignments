@@ -24,7 +24,7 @@ app.get('/getData', (req, res) => {
 
   const number = +req.query.number;
 
-  if (number % 1 === 0 && number > 0) {
+  if (Number.isInteger(number) && number > 0) {
     // positive integer
     const sum = (1 + number) * number / 2;
     return res.json({ sum });
