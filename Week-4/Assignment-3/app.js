@@ -20,7 +20,7 @@ app.use(session({
 
 app.use(flash());
 
-const { User } = require('./models')
+const { User } = require('./models');
 
 app.use((req, res, next) => {
   res.locals.errorMsg = req.flash('errorMsg');
@@ -92,6 +92,8 @@ app.post('/register', (req, res) => {
 })
 
 // race condition test
+const { User_without_unique_key } = require('./models');
+
 app.use((req, res, next) => {
   res.locals.rcMsg = req.flash('rcMsg');
   next();
@@ -100,6 +102,44 @@ app.use((req, res, next) => {
 app.get('/race_condition', (req, res) => {
 
   return res.render('race_condition');
+})
+
+app.post('/race_condition_insert_without_unique_key', (req, res) => {
+
+  for (let i = 1; i <= 10; i += 1) {
+
+    const email = `user${i}@test.race.condition`;
+    const password = 1111;
+
+    User_without_unique_key.findOne({ where: { email: email } })
+      .then(async (user) => {
+        if (!user) {
+          try {
+            await User_without_unique_key.create({ email, password }).then(() => { console.log(`user${i} First Insert Done`) });
+          } catch (err) {
+            console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
+          }
+        } else {
+          console.log(`user${i} First Insert Failed`);
+        }
+      })
+
+    User_without_unique_key.findOne({ where: { email: email } })
+      .then(async (user) => {
+        if (!user) {
+          try {
+            await User_without_unique_key.create({ email, password }).then(() => { console.log(`user${i} Second Insert Done`) });
+          } catch (err) {
+            console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
+          }
+        } else {
+          console.log(`user${i} Second Insert Failed`);
+        }
+      })
+  }
+
+  req.flash('rcMsg', 'Insert without unique key completed!');
+  return res.redirect('/race_condition');
 })
 
 app.post('/race_condition_insert', (req, res) => {
@@ -136,7 +176,7 @@ app.post('/race_condition_insert', (req, res) => {
       })
   }
 
-  req.flash('rcMsg', 'Insert completed!');
+  req.flash('rcMsg', 'Insert with unique key completed!');
   return res.redirect('/race_condition');
 })
 
