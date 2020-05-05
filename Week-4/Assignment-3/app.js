@@ -94,22 +94,30 @@ app.get('/race_condition', (req, res) => {
 
   for (let i = 1; i <= 10; i += 1) {
 
-    const email = `test${i}`;
+    const email = `user${i}@test.race.condition`;
     const password = 1111;
 
     User.findOne({ where: { email: email } })
-      .then(user => {
+      .then(async (user) => {
         if (!user) {
-          User.create({ email, password }).then(() => { console.log(i, 'first done') });
+          try {
+            await User.create({ email, password }).then(() => { console.log(`user${i} First Insert Done`) });
+          } catch (err) {
+            console.error(err.parent.sqlMessage);
+          }
         } else {
           console.log(i, 'first fail');
         }
       })
 
     User.findOne({ where: { email: email } })
-      .then(user => {
+      .then(async (user) => {
         if (!user) {
-          User.create({ email, password }).then(() => { console.log(i, 'second done') });
+          try {
+            await User.create({ email, password }).then(() => { console.log(`user${i} Second Insert Done`) });
+          } catch (err) {
+            console.error(err.parent.sqlMessage);
+          }
         } else {
           console.log(i, 'second fail');
         }
