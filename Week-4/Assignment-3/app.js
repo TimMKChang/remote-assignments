@@ -90,6 +90,35 @@ app.post('/register', (req, res) => {
 
 })
 
+app.get('/race_condition', (req, res) => {
+
+  for (let i = 1; i <= 10; i += 1) {
+
+    const email = `test${i}`;
+    const password = 1111;
+
+    User.findOne({ where: { email: email } })
+      .then(user => {
+        if (!user) {
+          User.create({ email, password }).then(() => { console.log(i, 'first done') });
+        } else {
+          console.log(i, 'first fail');
+        }
+      })
+
+    User.findOne({ where: { email: email } })
+      .then(user => {
+        if (!user) {
+          User.create({ email, password }).then(() => { console.log(i, 'second done') });
+        } else {
+          console.log(i, 'second fail');
+        }
+      })
+  }
+
+  return res.send();
+})
+
 app.listen(port, () => {
   console.log(`App is now running on localhost:${port}`);
 });
