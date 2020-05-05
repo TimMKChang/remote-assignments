@@ -2,16 +2,16 @@
   <h1>Test race condition</h1>
 
   <div class="d-flex justify-content-center my-3">
-    <form action="/race_condition_insert_without_unique_key" method="POST" class="mx-3">
+    <form action="/race_condition/insert_without_unique_key" method="POST" class="mx-3">
       <button type="submit" class="btn btn-outline-dark">Insert without unique key</button>
     </form>
 
-    <form action="/race_condition_insert" method="POST" class="mx-3">
+    <form action="/race_condition/insert" method="POST" class="mx-3">
       <button type="submit" class="btn btn-outline-dark">Insert with unique key</button>
     </form>
 
-    <form action="/race_condition_delete" method="POST">
-      <button type="submit" class="btn btn-outline-dark">Delete</button>
+    <form action="/race_condition/delete" method="POST">
+      <button type="submit" class="btn btn-outline-dark">Delete all insert</button>
     </form>
   </div>
 

@@ -5,7 +5,6 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
-const { Op } = require('sequelize');
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -91,108 +90,8 @@ app.post('/register', (req, res) => {
 
 })
 
-// race condition test
-const { User_without_unique_key } = require('./models');
-
-app.use((req, res, next) => {
-  res.locals.rcMsg = req.flash('rcMsg');
-  next();
-})
-
-app.get('/race_condition', (req, res) => {
-
-  return res.render('race_condition');
-})
-
-app.post('/race_condition_insert_without_unique_key', (req, res) => {
-
-  for (let i = 1; i <= 10; i += 1) {
-
-    const email = `user${i}@test.race.condition`;
-    const password = 1111;
-
-    User_without_unique_key.findOne({ where: { email: email } })
-      .then(async (user) => {
-        if (!user) {
-          try {
-            await User_without_unique_key.create({ email, password }).then(() => { console.log(`user${i} First Insert Done`) });
-          } catch (err) {
-            console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
-          }
-        } else {
-          console.log(`user${i} First Insert Failed`);
-        }
-      })
-
-    User_without_unique_key.findOne({ where: { email: email } })
-      .then(async (user) => {
-        if (!user) {
-          try {
-            await User_without_unique_key.create({ email, password }).then(() => { console.log(`user${i} Second Insert Done`) });
-          } catch (err) {
-            console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
-          }
-        } else {
-          console.log(`user${i} Second Insert Failed`);
-        }
-      })
-  }
-
-  req.flash('rcMsg', 'Insert without unique key completed!');
-  return res.redirect('/race_condition');
-})
-
-app.post('/race_condition_insert', (req, res) => {
-
-  for (let i = 1; i <= 10; i += 1) {
-
-    const email = `user${i}@test.race.condition`;
-    const password = 1111;
-
-    User.findOne({ where: { email: email } })
-      .then(async (user) => {
-        if (!user) {
-          try {
-            await User.create({ email, password }).then(() => { console.log(`user${i} First Insert Done`) });
-          } catch (err) {
-            console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
-          }
-        } else {
-          console.log(`user${i} First Insert Failed`);
-        }
-      })
-
-    User.findOne({ where: { email: email } })
-      .then(async (user) => {
-        if (!user) {
-          try {
-            await User.create({ email, password }).then(() => { console.log(`user${i} Second Insert Done`) });
-          } catch (err) {
-            console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
-          }
-        } else {
-          console.log(`user${i} Second Insert Failed`);
-        }
-      })
-  }
-
-  req.flash('rcMsg', 'Insert with unique key completed!');
-  return res.redirect('/race_condition');
-})
-
-app.post('/race_condition_delete', (req, res) => {
-
-  User.destroy({
-    where: {
-      email: {
-        [Op.like]: '%@test.race.condition'
-      }
-    }
-  })
-
-  req.flash('rcMsg', 'Delete completed!');
-  return res.redirect('/race_condition');
-})
+// test race_condition
+app.use('/race_condition', require('./routes/race_condition'));
 
 app.listen(port, () => {
   console.log(`App is now running on localhost:${port}`);
