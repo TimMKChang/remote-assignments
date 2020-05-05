@@ -1,0 +1,19 @@
+<div class="text-center mt-5">
+  <h1>Test race condition</h1>
+
+  <div class="d-flex justify-content-center my-3">
+    <form action="/race_condition_insert" method="POST" class="mx-3">
+      <button type="submit" class="btn btn-outline-dark">Insert</button>
+    </form>
+
+    <form action="/race_condition_delete" method="POST">
+      <button type="submit" class="btn btn-outline-dark">Delete</button>
+    </form>
+  </div>
+
+  {{#if rcMsg}}
+  <h3>{{rcMsg}}</h3>
+  {{/if}}
+
+  <h3>Check the result in CMD and database table</h3>
+</div>

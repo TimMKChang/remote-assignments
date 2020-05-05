@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
+const { Op } = require('sequelize');
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -90,7 +91,18 @@ app.post('/register', (req, res) => {
 
 })
 
+// race condition test
+app.use((req, res, next) => {
+  res.locals.rcMsg = req.flash('rcMsg');
+  next();
+})
+
 app.get('/race_condition', (req, res) => {
+
+  return res.render('race_condition');
+})
+
+app.post('/race_condition_insert', (req, res) => {
 
   for (let i = 1; i <= 10; i += 1) {
 
@@ -106,7 +118,7 @@ app.get('/race_condition', (req, res) => {
             console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
           }
         } else {
-          console.log(i, 'first fail');
+          console.log(`user${i} First Insert Failed`);
         }
       })
 
@@ -119,12 +131,27 @@ app.get('/race_condition', (req, res) => {
             console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
           }
         } else {
-          console.log(i, 'second fail');
+          console.log(`user${i} Second Insert Failed`);
         }
       })
   }
 
-  return res.send();
+  req.flash('rcMsg', 'Insert completed!');
+  return res.redirect('/race_condition');
+})
+
+app.post('/race_condition_delete', (req, res) => {
+
+  User.destroy({
+    where: {
+      email: {
+        [Op.like]: '%@test.race.condition'
+      }
+    }
+  })
+
+  req.flash('rcMsg', 'Delete completed!');
+  return res.redirect('/race_condition');
 })
 
 app.listen(port, () => {
