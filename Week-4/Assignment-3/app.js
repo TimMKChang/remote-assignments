@@ -103,7 +103,7 @@ app.get('/race_condition', (req, res) => {
           try {
             await User.create({ email, password }).then(() => { console.log(`user${i} First Insert Done`) });
           } catch (err) {
-            console.error(err.parent.sqlMessage);
+            console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
           }
         } else {
           console.log(i, 'first fail');
@@ -116,7 +116,7 @@ app.get('/race_condition', (req, res) => {
           try {
             await User.create({ email, password }).then(() => { console.log(`user${i} Second Insert Done`) });
           } catch (err) {
-            console.error(err.parent.sqlMessage);
+            console.error('\x1b[41m%s\x1b[0m', err.parent.sqlMessage);
           }
         } else {
           console.log(i, 'second fail');
